@@ -1,19 +1,16 @@
-import { useEffect } from 'react';
+import { useContext } from 'react';
+import { CursorContext } from '../context/CursorContext.jsx';
 
-const UseCursorHover = (selector, onEnter, onLeave) => {
-  useEffect(() => {
-    const elements = document.querySelectorAll(selector);
-    elements.forEach(el => {
-      el.addEventListener('mouseenter', onEnter);
-      el.addEventListener('mouseleave', onLeave);
-    });
-    return () => {
-      elements.forEach(el => {
-        el.removeEventListener('mouseenter', onEnter);
-        el.removeEventListener('mouseleave', onLeave);
-      });
-    };
-  }, [selector, onEnter, onLeave]);
+const useCursorHover = () => {
+  const { setIsHovered } = useContext(CursorContext);
+
+  const onMouseEnter = () => setIsHovered(true);
+  const onMouseLeave = () => setIsHovered(false);
+
+  return {
+    onMouseEnter,
+    onMouseLeave
+  };
 };
 
-export default UseCursorHover;
+export default useCursorHover;
