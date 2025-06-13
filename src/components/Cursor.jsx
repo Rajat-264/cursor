@@ -3,11 +3,13 @@ import { CursorContext } from '../context/CursorContext.jsx';
 import '../styles/cursor.css';
 
 const Cursor = () => {
-  const { theme } = useContext(CursorContext);
+  const { theme, isHovered } = useContext(CursorContext);
 
+  const [mousePos, setMousePos] = useState({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
   const [trailPositions, setTrailPositions] = useState([]);
-  const mouse = useRef({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
+
   const initialized = useRef(false);
+  const mouse = useRef({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
 
   const length = theme.trailLength || 16;
   const smoothness = theme.trailSmoothing || 0.5;
@@ -21,11 +23,13 @@ const Cursor = () => {
 
   useEffect(() => {
     const handleMouseMove = (e) => {
-      mouse.current.x = e.clientX;
-      mouse.current.y = e.clientY;
+      const x = e.clientX;
+      const y = e.clientY;
+      mouse.current = { x, y };
+      setMousePos({ x, y });
 
       if (!initialized.current) {
-        setTrailPositions(Array.from({ length }, () => ({ x: mouse.current.x, y: mouse.current.y })));
+        setTrailPositions(Array.from({ length }, () => ({ x, y })));
         initialized.current = true;
       }
     };
@@ -80,7 +84,7 @@ const Cursor = () => {
                 backgroundColor: color,
                 pointerEvents: "none",
                 zIndex: 9998,
-                opacity: Math.pow(1 - i / length, 2), 
+                opacity: Math.pow(1 - i / length, 2),
                 transform: `translate3d(${pos.x - offset}px, ${pos.y - offset}px, 0)`,
                 transition: "opacity 0.2s, transform 0.05s ease-out",
                 mixBlendMode: theme.styles?.mixBlendMode || "normal",
@@ -93,9 +97,6 @@ const Cursor = () => {
       </>
     );
   }
-
-  const cursorRef = useRef(null);
-  const { isHovered } = useContext(CursorContext);
 
   const cursorSize = isHovered
     ? theme.baseSize * theme.hoverScale
@@ -128,18 +129,8 @@ const Cursor = () => {
     }
   };
 
-  useEffect(() => {
-    const cursor = cursorRef.current;
-    const move = (e) => {
-      cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate(-50%, -50%)`;
-    };
-    document.addEventListener('mousemove', move);
-    return () => document.removeEventListener('mousemove', move);
-  }, []);
-
   return (
     <div
-      ref={cursorRef}
       className="cursor"
       style={{
         ...getShapeStyle(),
@@ -151,10 +142,12 @@ const Cursor = () => {
         top: 0,
         left: 0,
         pointerEvents: "none",
-        mixBlendMode: theme.styles?.mixBlendMode|| "normal",
-        transform: `translate(-50%, -50%)`,
+        mixBlendMode: theme.styles?.mixBlendMode || "normal",
+        transform: `translate3d(${mousePos.x}px, ${mousePos.y}px, 0) translate(-50%, -50%)`,
         zIndex: theme.zIndex || 9999,
-        transition: theme.transition || "width 0.25s ease, height 0.25s ease, background-color 0.25s ease,transform 0.3s ease-out",
+        transition:
+          theme.transition ||
+          "width 0.25s ease, height 0.25s ease, background-color 0.25s ease, transform 0.3s ease-out",
       }}
     />
   );
