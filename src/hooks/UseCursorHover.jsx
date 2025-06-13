@@ -4,12 +4,9 @@ import { CursorContext } from '../context/CursorContext.jsx';
 const useCursorHover = () => {
   const { setIsHovered } = useContext(CursorContext);
 
-  const onMouseEnter = () => setIsHovered(true);
-  const onMouseLeave = () => setIsHovered(false);
-
   return {
-    onMouseEnter,
-    onMouseLeave
+    onMouseEnter: () => setIsHovered(true),
+    onMouseLeave: () => setIsHovered(false),
   };
 };
 
