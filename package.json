@@ -1,6 +1,6 @@
 {
   "name": "curzr",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Highly customizable animated cursor with dot or liquid trails for React.",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
