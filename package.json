@@ -1,35 +1,52 @@
 {
-  "name": "cursor",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
+  "name": "curzr",
+  "version": "1.0.0",
+  "description": "Highly customizable animated cursor with dot or liquid trails for React.",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.js"
+    }
+  },
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "rollup -c",
     "lint": "eslint .",
     "preview": "vite preview"
   },
-  "dependencies": {
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+  "keywords": [
+    "react",
+    "cursor",
+    "custom-cursor",
+    "trail",
+    "animated-cursor",
+    "npm-package"
+  ],
+  "author": "Rajat Hande",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "^18 || ^19",
+    "react-dom": "^18 || ^19"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.27.1",
-    "@eslint/js": "^9.25.0",
+    "@rollup/plugin-babel": "^6.0.3",
     "@rollup/plugin-commonjs": "^28.0.3",
     "@rollup/plugin-node-resolve": "^16.0.1",
-    "@types/react": "^19.1.2",
-    "@types/react-dom": "^19.1.2",
-    "@vitejs/plugin-react": "^4.4.1",
+    "@rollup/plugin-terser": "^0.4.4",
     "eslint": "^9.25.0",
     "eslint-plugin-react-hooks": "^5.2.0",
-    "eslint-plugin-react-refresh": "^0.4.19",
-    "globals": "^16.0.0",
-    "rollup": "^4.42.0",
-    "rollup-plugin-babel": "^4.4.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "rollup": "^4.0.0",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-postcss": "^4.0.2",
-    "rollup-plugin-terser": "^7.0.2",
     "vite": "^6.3.5"
   }
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useContext, useState } from 'react';
-import { CursorContext } from '../context/CursorContext';
+import { CursorContext } from '../context/CursorContext.jsx';
 import '../styles/cursor.css';
 
 const Cursor = () => {
