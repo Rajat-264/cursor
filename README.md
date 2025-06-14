@@ -52,7 +52,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 
 ```jsx
 // App.jsx
-import { Cursor } from 'curzr';
+import { Cursor, CursorProvider, useCursorHover } from 'curzr';
+import './../node_modules/curzr/dist/styles/cursor.css'; 
 
 function App() {
   return (
@@ -71,6 +72,12 @@ function App() {
     baseSize: 32,
     hoverScale: 2,
     color: '#00faff',
+    hoverColor: '#ff0000',           // Changes color on hover
+    hoverBorder: '2px solid red',    // Changes border on hover
+    hoverShadow: '0 0 10px #f0f',    // Adds shadow/glow on hover
+    hoverBlendMode: 'difference',    // Changes blend mode on hover
+    hoverTransition: 'all 0.5s ease-in-out', // Custom transition for hover
+    hoverType: 'ring',               // Morphs shape to 'ring' on hover
     transition: 'transform 0.2s, width 0.2s, height 0.2s',
     styles: {
       mixBlendMode: 'difference',
@@ -92,7 +99,8 @@ function App() {
 
 ```jsx
 // App.jsx
-import { Cursor } from 'curzr';
+import { Cursor, CursorProvider, useCursorHover } from 'curzr';
+import './../node_modules/curzr/dist/styles/cursor.css'; 
 
 function App() {
   return (
