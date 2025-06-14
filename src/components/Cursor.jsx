@@ -102,15 +102,17 @@ const Cursor = () => {
     ? theme.baseSize * theme.hoverScale
     : theme.baseSize;
 
+  const shapeType = isHovered && theme.hoverType ? theme.hoverType : theme.type;
+
   const getShapeStyle = () => {
-    switch (theme.type) {
+    switch (shapeType) {
       case "dot":
         return { borderRadius: "50%" };
       case "ring":
         return {
           borderRadius: "50%",
           backgroundColor: "transparent",
-          border: theme.styles?.border || "2px solid",
+          border: isHovered ? theme.hoverBorder || "2px solid" : theme.styles?.border || "2px solid",
         };
       case "square":
         return { borderRadius: "4px" };
@@ -137,15 +139,18 @@ const Cursor = () => {
         ...theme.styles,
         width: `${cursorSize}px`,
         height: `${cursorSize}px`,
-        backgroundColor: theme.color,
+        backgroundColor: isHovered ? theme.hoverColor || theme.color : theme.color,
         position: "fixed",
         top: 0,
         left: 0,
         pointerEvents: "none",
-        mixBlendMode: theme.styles?.mixBlendMode || "normal",
+        mixBlendMode: isHovered ? theme.hoverBlendMode || theme.styles?.mixBlendMode || "normal" : theme.styles?.mixBlendMode || "normal",
         transform: `translate3d(${mousePos.x}px, ${mousePos.y}px, 0) translate(-50%, -50%)`,
         zIndex: theme.zIndex || 9999,
+        border: isHovered ? theme.hoverBorder || theme.styles?.border : theme.styles?.border,
+        boxShadow: isHovered ? theme.hoverShadow || theme.styles?.boxShadow : theme.styles?.boxShadow,
         transition:
+          theme.hoverTransition ||
           theme.transition ||
           "width 0.25s ease, height 0.25s ease, background-color 0.25s ease, transform 0.3s ease-out",
       }}
